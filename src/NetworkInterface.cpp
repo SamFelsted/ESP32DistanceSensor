@@ -23,10 +23,11 @@ String NetworkInterface::processor(const String& var) {
     return {};
 }
 
+
 void NetworkInterface::configMode() {
     Serial.println("Setting AP (Access Point)");
     // NULL sets an open Access Point
-    WiFi.softAP("ESP-WIFI-MANAGER", nullptr);
+    WiFi.softAP("ESP-DISTANCESENSOR", nullptr);
 
     IPAddress IP = WiFi.softAPIP();
     Serial.print("AP IP address: ");
@@ -34,8 +35,16 @@ void NetworkInterface::configMode() {
 
     // Web Server Root URL
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-        request->send(LittleFS, "/wifimanager.html", "text/html");
+        request->send(LittleFS, "/index.html", "text/html");
     });
+
+    server.on("/sensor", HTTP_GET, [](AsyncWebServerRequest *request){
+        float sensorValue = analogRead(34);  // Example: Read from GPIO34
+        String jsonResponse = "{\"value\": " + String(sensorValue) + "}";
+        request->send(200, "application/json", jsonResponse);
+    });
+
+
 
     server.serveStatic("/", LittleFS, "/");
 

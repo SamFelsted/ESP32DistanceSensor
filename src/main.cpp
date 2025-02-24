@@ -1,10 +1,13 @@
 #include <Arduino.h>
+#include "NetworkInterface.h"
 
+
+NetworkInterface networkInterface(80);
 
 void setup() {
-// write your initialization code here
+    networkInterface.boot();
 }
 
 void loop() {
-// write your code here
+
 }

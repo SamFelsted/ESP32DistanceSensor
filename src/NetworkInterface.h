@@ -16,6 +16,7 @@ class NetworkInterface {
         String ip;
         String gateway;
 
+        int data;
 
         IPAddress localIP;
         //IPAddress localIP(192, 168, 1, 200); // hardcoded
@@ -37,6 +38,8 @@ class NetworkInterface {
     public:
         NetworkInterface(int port) : server(port), subnet(255, 255, 0, 0){};
         void boot();
+
+
 
         static void initLittleFS();
 
