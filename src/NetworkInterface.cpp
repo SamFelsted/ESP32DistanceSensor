@@ -9,7 +9,6 @@ void NetworkInterface::initLittleFS() {
     Serial.println("LittleFS mounted successfully");
 }
 
-
 void NetworkInterface::configMode() {
     Serial.println("Setting AP (Access Point)");
     // NULL sets an open Access Point
@@ -21,16 +20,15 @@ void NetworkInterface::configMode() {
 
     // Web Server Root URL
     server.on("/", HTTP_GET, [this](AsyncWebServerRequest *request){
-        request->send(LittleFS, "/index.html", "text/html");
+        request->send(LittleFS, "/index.html", "text/html", false);
     });
+    server.serveStatic("/", LittleFS, "/");
 
     server.on("/sensor", HTTP_GET, [this](AsyncWebServerRequest *request){
         String jsonResponse = "{\"value\": " + String(data) + "}";
         request->send(200, "application/json", jsonResponse);
     });
 
-
-    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
 
     server.begin();
 }

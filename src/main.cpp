@@ -1,12 +1,12 @@
 #include <Arduino.h>
-//#include "NetworkInterface.h"
+#include "NetworkInterface.h"
 #include <Wire.h>
 
 #include <Adafruit_VL53L0X.h>
 
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
-//NetworkInterface networkInterface(80);
+NetworkInterface networkInterface(80);
 
 
 void scanI2C() {
@@ -29,7 +29,7 @@ void setup() {
     Wire.begin(21, 22);
     scanI2C();
 
-    //networkInterface.boot();
+    networkInterface.boot();
 
     // wait until serial port opens for native USB devices
     while (!Serial) {
@@ -58,6 +58,7 @@ void loop() {
 
     if (measure.RangeStatus != 4) {  // phase failures have incorrect data
         Serial.print("Distance (mm): "); Serial.println(measure.RangeMilliMeter);
+        networkInterface.data = measure.RangeMilliMeter;
     } else {
         Serial.println(" out of range ");
     }
