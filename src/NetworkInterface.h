@@ -11,12 +11,6 @@ class NetworkInterface {
     private:
         AsyncWebServer server;
 
-        String ssid;
-        String pass;
-        String ip;
-        String gateway;
-
-        int data;
 
         IPAddress localIP;
         //IPAddress localIP(192, 168, 1, 200); // hardcoded
@@ -26,12 +20,7 @@ class NetworkInterface {
         //IPAddress localGateway(192, 168, 1, 1); //hardcoded
         IPAddress subnet;
 
-        // Timer variables
-        unsigned long previousMillis = 0;
-        const long interval = 10000;  // interval to wait for Wi-Fi connection (milliseconds)
 
-        // Set LED GPIO
-        const int ledPin = 2;
         // Stores LED state
         String ledState;
 
@@ -39,11 +28,8 @@ class NetworkInterface {
         NetworkInterface(int port) : server(port), subnet(255, 255, 0, 0){};
         void boot();
 
-
-
+        int data = 0;
         static void initLittleFS();
-
-        String processor(const String &var);
 
         bool testState;
         void configMode();
