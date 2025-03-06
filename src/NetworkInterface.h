@@ -20,6 +20,8 @@ class NetworkInterface {
         //IPAddress localGateway(192, 168, 1, 1); //hardcoded
         IPAddress subnet;
 
+        double pos = 0;
+        double vel = 0;
 
         // Stores LED state
         String ledState;
@@ -28,7 +30,7 @@ class NetworkInterface {
         NetworkInterface(int port) : server(port), subnet(255, 255, 0, 0){};
         void boot();
 
-        int data = 0;
+        void addData(double d, double v);
         static void initLittleFS();
 
         bool testState;

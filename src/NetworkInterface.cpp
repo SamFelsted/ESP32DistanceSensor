@@ -25,12 +25,23 @@ void NetworkInterface::configMode() {
     server.serveStatic("/", LittleFS, "/");
 
     server.on("/sensor", HTTP_GET, [this](AsyncWebServerRequest *request){
-        String jsonResponse = "{\"value\": " + String(data) + "}";
+        String jsonResponse = "{\"pos\": " + String(pos) + ", \"vel\": " + String(vel) + "}";
         request->send(200, "application/json", jsonResponse);
     });
 
 
+
     server.begin();
+}
+
+/**
+ * Add measurement data
+ * @param d pos
+ * @param v velocity
+ */
+void NetworkInterface::addData(double d, double v) {
+    this->pos = d;
+    this->vel = v;
 }
 
 

@@ -10,6 +10,11 @@ NetworkInterface networkInterface(80);
 
 VL53L0X_RangingMeasurementData_t measure;
 
+
+
+
+
+
 void scanI2C() {
     Serial.println("Scanning I2C...");
     byte count = 0;
@@ -64,14 +69,18 @@ void loop() {
     Serial.print("Reading a measurement... ");
     lox.rangingTest(&measure, true); // pass in 'true' to get debug data printout!
 
+    int value =  measure.RangeMilliMeter;
+
+
+
     if (measure.RangeStatus != 4) {  // phase failures have incorrect data
         Serial.print("Distance (mm): ");
         Serial.println(measure.RangeMilliMeter);
-        networkInterface.data = measure.RangeMilliMeter;
+        networkInterface.addData(value, 10);
+
     } else {
         Serial.println(" out of range ");
-        networkInterface.data = -1;
     }
-    delay(500);
+    delay(10);
 
 }
