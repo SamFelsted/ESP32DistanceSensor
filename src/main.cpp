@@ -74,6 +74,7 @@ void loop() {
         networkInterface.data = measure.RangeMilliMeter;
     } else {
         Serial.println(" out of range ");
+        networkInterface.data = -1;
     }
     delay(500);
 
