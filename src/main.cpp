@@ -33,10 +33,6 @@ void setup() {
 
     networkInterface.boot();
 
-    // wait until serial port opens for native USB devices
-    while (!Serial) {
-        delay(1);
-    }
 
     Serial.println("Adafruit VL53L0X test.");
 
