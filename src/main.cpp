@@ -4,17 +4,41 @@
 
 #include <Adafruit_VL53L0X.h>
 
+//API objects
 Adafruit_VL53L0X lox = Adafruit_VL53L0X();
-
 NetworkInterface networkInterface(80);
-
 VL53L0X_RangingMeasurementData_t measure;
 
 
+//Settings
+const int numAverages = 10;
+int averagePos[numAverages];
+int averageVel[numAverages];
+int timeStep = 5;
 
 
+//Calculators
+int averageCtr = 0;
+int prevPos = 0;
+
+/**
+ * Moving average function
+ * @param arr
+ * @param size
+ * @return
+ */
+float average(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum / size;
+}
 
 
+/**
+ * Scans IC bus and prints addresses
+ */
 void scanI2C() {
     Serial.println("Scanning I2C...");
     byte count = 0;
@@ -66,21 +90,41 @@ void setup() {
 
 
 void loop() {
-    Serial.print("Reading a measurement... ");
-    lox.rangingTest(&measure, true); // pass in 'true' to get debug data printout!
+    lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
     int value =  measure.RangeMilliMeter;
+    int delta = (value - prevPos) / timeStep;
+    prevPos = value;
 
-
-
-    if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-        Serial.print("Distance (mm): ");
-        Serial.println(measure.RangeMilliMeter);
-        networkInterface.addData(value, 10);
-
+    if (averageCtr < numAverages) {
+        averagePos[averageCtr] = value;      //Change to whatever the current sensor value is
+        averageVel[averageCtr] = delta;
+        averageCtr++;
     } else {
-        Serial.println(" out of range ");
+        // Calculate average
+        float posAvg = average(averagePos, numAverages);
+        float velAvg = average(averageVel, numAverages);
+
+        Serial.print("Distance (mm): ");
+        Serial.println(posAvg);
+
+
+        Serial.print("Velocity (mm/s): ");
+        Serial.println(velAvg);
+        networkInterface.addData(posAvg, velAvg);
+
+
+        // Reset counter
+        averageCtr = 0;
+
+        // Directly overwrite the first element to start a new cycle
+        averagePos[averageCtr] = value;
+        averageCtr++;
     }
-    delay(10);
+
+
+
+
+    delay(timeStep);
 
 }
