@@ -25,7 +25,7 @@ void NetworkInterface::configMode() {
     server.serveStatic("/", LittleFS, "/");
 
     server.on("/sensor", HTTP_GET, [this](AsyncWebServerRequest *request){
-        String jsonResponse = "{\"pos\": " + String(pos) + ", \"vel\": " + String(vel) + "}";
+        String jsonResponse = "{\"pos\": " + String(pos) + "}";
         request->send(200, "application/json", jsonResponse);
     });
 
@@ -39,9 +39,8 @@ void NetworkInterface::configMode() {
  * @param d pos
  * @param v velocity
  */
-void NetworkInterface::addData(double d, double v) {
+void NetworkInterface::addData(double d) {
     this->pos = d;
-    this->vel = v;
 }
 
 

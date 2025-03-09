@@ -13,7 +13,6 @@
                 .then(response => response.json()) // Parse JSON response
                 .then(data => {
                   document.getElementById("sensorPos").innerText = data.pos;
-                  document.getElementById("sensorVel").innerText = data.vel;
                 })
                 .catch(error => console.error("Error fetching data:", error));
       }
@@ -33,7 +32,6 @@
       <div class="card-grid">
         <div class="card">
           <p><strong>Position: </strong><span id="sensorPos">Loading...</span></p>
-          <p><strong>Velocity: </strong><span id="sensorVel">Loading...</span></p>
         </div>
       </div>
     </div>

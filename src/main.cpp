@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "NetworkInterface.h"
 #include <Wire.h>
+#include "movingAverage.h"
 
 #include <Adafruit_VL53L0X.h>
 
@@ -11,29 +12,8 @@ VL53L0X_RangingMeasurementData_t measure;
 
 
 //Settings
-const int numAverages = 10;
-int averagePos[numAverages];
-int averageVel[numAverages];
-int timeStep = 5;
-
-
-//Calculators
-int averageCtr = 0;
-int prevPos = 0;
-
-/**
- * Moving average function
- * @param arr
- * @param size
- * @return
- */
-float average(int arr[], int size) {
-    int sum = 0;
-    for (int i = 0; i < size; i++) {
-        sum += arr[i];
-    }
-    return sum / size;
-}
+const int window_size = 10;
+MovingAverage filter(window_size);
 
 
 /**
@@ -93,38 +73,11 @@ void loop() {
     lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
     int value =  measure.RangeMilliMeter;
-    int delta = (value - prevPos) / timeStep;
-    prevPos = value;
+    double avg = filter.update(value);
 
-    if (averageCtr < numAverages) {
-        averagePos[averageCtr] = value;      //Change to whatever the current sensor value is
-        averageVel[averageCtr] = delta;
-        averageCtr++;
-    } else {
-        // Calculate average
-        float posAvg = average(averagePos, numAverages);
-        float velAvg = average(averageVel, numAverages);
+    Serial.println(avg);
+    networkInterface.addData(avg);
 
-        Serial.print("Distance (mm): ");
-        Serial.println(posAvg);
-
-
-        Serial.print("Velocity (mm/s): ");
-        Serial.println(velAvg);
-        networkInterface.addData(posAvg, velAvg);
-
-
-        // Reset counter
-        averageCtr = 0;
-
-        // Directly overwrite the first element to start a new cycle
-        averagePos[averageCtr] = value;
-        averageCtr++;
-    }
-
-
-
-
-    delay(timeStep);
+    delay(100);
 
 }

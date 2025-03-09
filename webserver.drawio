@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.1.0">
+  <diagram name="Page-1" id="Ausza3RnCuT82NAeGiDv">
+    <mxGraphModel dx="1050" dy="522" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-1" value="" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="180" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="200" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-4" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.925;entryY=0.353;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.363;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="TrrQ1sp_gKKCBTN91TIz-3" target="TrrQ1sp_gKKCBTN91TIz-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="450" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-6" value="HTTP GET request" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="395" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-7" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.014;entryY=0.877;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.96;exitY=0.7;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="TrrQ1sp_gKKCBTN91TIz-1" target="TrrQ1sp_gKKCBTN91TIz-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="530" y="254" as="sourcePoint" />
+            <mxPoint x="352" y="254" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-8" value="HTTP POST data" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-9" value="Web broswer" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="560" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TrrQ1sp_gKKCBTN91TIz-10" value="ESP32" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="220" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
