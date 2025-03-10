@@ -9,7 +9,7 @@ void NetworkInterface::initLittleFS() {
     Serial.println("LittleFS mounted successfully");
 }
 
-void NetworkInterface::configMode() {
+void NetworkInterface::activeMode() {
     Serial.println("Setting AP (Access Point)");
     // NULL sets an open Access Point
     WiFi.softAP("ESP", nullptr);
@@ -46,6 +46,5 @@ void NetworkInterface::addData(double d) {
 
 void NetworkInterface::boot() {
     initLittleFS();
-
     configMode();
 }

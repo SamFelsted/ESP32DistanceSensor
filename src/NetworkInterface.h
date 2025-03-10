@@ -22,8 +22,6 @@ class NetworkInterface {
 
         double pos = 0;
 
-        // Stores LED state
-        String ledState;
 
     public:
         NetworkInterface(int port) : server(port), subnet(255, 255, 0, 0){};
@@ -32,8 +30,7 @@ class NetworkInterface {
         void addData(double d);
         static void initLittleFS();
 
-        bool testState;
-        void configMode();
+        void activeMode();
 };
 
 

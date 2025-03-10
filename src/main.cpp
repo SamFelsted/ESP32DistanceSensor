@@ -72,12 +72,14 @@ void setup() {
 void loop() {
     lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
-    int value =  measure.RangeMilliMeter;
+    int value =  measure.RangeMilliMeter / 10;
     double avg = filter.update(value);
 
+    Serial.print("Raw: ");
+    Serial.println(value);
+    Serial.print("Filtered: ");
     Serial.println(avg);
     networkInterface.addData(avg);
 
-    delay(100);
-
+    delay(10);
 }
